@@ -1,27 +1,41 @@
 import streamlit as st
 
-def calculate_adjustment(value, percent, absolute):
+def calculate_allowed_change(original_ratio, relative_change, absolute_change_limit):
     # Calculate the allowable adjustment
-    adjustment = max(value * percent, absolute)
-    return adjustment
+    relative_adjustment = original_ratio * relative_change
+    allowed_change = min(relative_adjustment, absolute_change_limit)
+    return allowed_change
 
 def main():
     st.title("Allowable Adjustments to European Pharmacopeia (EP) Methods")
 
     st.sidebar.header("Input Parameters")
 
-    # Example input fields, you can customize based on your needs
-    mobile_phase_ratio = st.sidebar.number_input("Mobile Phase Ratio (%)", min_value=0.0, max_value=100.0, step=1.0, value=50.0)
-    mobile_phase_absolute_change = st.sidebar.number_input("Mobile Phase Absolute Change (%)", min_value=0.0, max_value=100.0, step=1.0, value=10.0)
+    mobile_phases = ['Mobile Phase A', 'Mobile Phase B', 'Mobile Phase C']
 
-    # Perform calculations
-    adjusted_ratio = calculate_adjustment(mobile_phase_ratio, 0.3, mobile_phase_absolute_change)
+    allowed_changes = {}
+
+    for phase in mobile_phases:
+        st.sidebar.subheader(f"{phase} - Original Ratio (%)")
+        original_ratio = st.sidebar.number_input(f"{phase} Original Ratio (%)", min_value=0.0, max_value=100.0, step=1.0, value=50.0)
+
+        st.sidebar.subheader(f"{phase} - Relative Change (%)")
+        relative_change = st.sidebar.number_input(f"{phase} Relative Change (%)", min_value=0.0, max_value=100.0, step=1.0, value=0.0)
+
+        st.sidebar.subheader(f"{phase} - Absolute Change Limit (%)")
+        absolute_change_limit = st.sidebar.number_input(f"{phase} Absolute Change Limit (%)", min_value=0.0, max_value=100.0, step=1.0, value=10.0)
+
+        # Perform calculations
+        allowed_change = calculate_allowed_change(original_ratio, relative_change, absolute_change_limit)
+
+        # Save result for later display
+        allowed_changes[phase] = allowed_change
 
     # Display results
     st.subheader("Results")
-    st.write(f"Original Mobile Phase Ratio: {mobile_phase_ratio}%")
-    st.write(f"Allowable Adjusted Mobile Phase Ratio: {adjusted_ratio}%")
+
+    for phase, change in allowed_changes.items():
+        st.write(f"{phase} Allowed Change: {change:.2f}%")
 
 if __name__ == "__main__":
     main()
-
