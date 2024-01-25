@@ -5,8 +5,11 @@ MOBILE_PHASE_A_RELATIVE_LIMIT = 30.0
 MOBILE_PHASE_A_ABSOLUTE_LIMIT = 10.0
 
 def calculate_allowed_change(original_ratio, relative_change, absolute_change_limit):
+    # Apply the relative limit below 10 if it is smaller than the absolute limit
+    relative_limit = max(relative_change, 10.0)
+    
     # Calculate the allowable adjustment
-    relative_adjustment = original_ratio * relative_change
+    relative_adjustment = original_ratio * relative_limit / 100.0
     allowed_change = min(relative_adjustment, absolute_change_limit)
     return allowed_change
 
