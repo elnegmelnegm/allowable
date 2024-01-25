@@ -43,9 +43,9 @@ def main():
     # Display results
     st.subheader("Results")
 
-    for phase, change_range in allowed_changes.items():
+    for change_range in allowed_changes.items():
         original_ratio, lower_limit, upper_limit = change_range
-        st.write(f"{phase} Original Ratio: {original_ratio:.2f}%")
+        #st.write(f"{phase} Original Ratio: {original_ratio:.2f}%")
         st.write(f"{phase} Allowed Change: From {lower_limit:.2f}% to {upper_limit:.2f}%")
 
 if __name__ == "__main__":
