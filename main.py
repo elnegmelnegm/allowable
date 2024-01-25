@@ -16,7 +16,7 @@ def calculate_allowed_change(original_ratio, relative_change, absolute_change_li
 def main():
     st.title("Ratio of components in mobile phase")
 
-    st.sidebar.header("Input Parameters")
+    #st.sidebar.header("Input Parameters")
 
     mobile_phases = ['Mobile Phase A', 'Mobile Phase B', 'Mobile Phase C']
 
