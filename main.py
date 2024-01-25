@@ -1,5 +1,6 @@
 import streamlit as st
-
+image_path = 'https://www.edaegypt.gov.eg/media/wc3lsydo/group-287.png'
+st.image(image_path)
 # Constants for Mobile Phase A
 MOBILE_PHASE_A_RELATIVE_LIMIT = 30.0
 MOBILE_PHASE_A_ABSOLUTE_LIMIT = 10.0
