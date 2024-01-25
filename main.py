@@ -14,7 +14,7 @@ def calculate_allowed_change(original_ratio, relative_change, absolute_change_li
     return allowed_change
 
 def main():
-    st.title("Allowable Adjustments to European Pharmacopeia (EP) Methods")
+    st.title("Ratio of components in mobile phase")
 
     st.sidebar.header("Input Parameters")
 
