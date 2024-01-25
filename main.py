@@ -19,25 +19,31 @@ def main():
 
     allowed_changes = {}
 
-    for phase in mobile_phases:
-        st.sidebar.subheader(f"{phase} - Original Ratio (%)")
-        original_ratio = st.sidebar.number_input(f"{phase} Original Ratio (%)", min_value=0.0, max_value=100.0, step=1.0, value=50.0)
+    # Input for Mobile Phase A
+    st.sidebar.subheader(f"{mobile_phases[0]} - Original Ratio (%)")
+    original_ratio_a = st.sidebar.number_input(f"{mobile_phases[0]} Original Ratio (%)", min_value=0.0, max_value=100.0, step=1.0, value=50.0)
 
-        if phase == 'Mobile Phase A':
-            relative_change = MOBILE_PHASE_A_RELATIVE_LIMIT
-            absolute_change_limit = MOBILE_PHASE_A_ABSOLUTE_LIMIT
-        else:
-            st.sidebar.subheader(f"{phase} - Relative Change (%)")
-            relative_change = st.sidebar.number_input(f"{phase} Relative Change (%)", min_value=0.0, max_value=100.0, step=1.0, value=0.0)
+    relative_change_a = MOBILE_PHASE_A_RELATIVE_LIMIT
+    absolute_change_limit_a = MOBILE_PHASE_A_ABSOLUTE_LIMIT
 
-            st.sidebar.subheader(f"{phase} - Absolute Change Limit (%)")
-            absolute_change_limit = st.sidebar.number_input(f"{phase} Absolute Change Limit (%)", min_value=0.0, max_value=100.0, step=1.0, value=10.0)
+    # Input for Mobile Phase B
+    st.sidebar.subheader(f"{mobile_phases[1]} - Original Ratio (%)")
+    original_ratio_b = st.sidebar.number_input(f"{mobile_phases[1]} Original Ratio (%)", min_value=0.0, max_value=100.0, step=1.0, value=30.0)
 
-        # Perform calculations
-        allowed_change = calculate_allowed_change(original_ratio, relative_change, absolute_change_limit)
+    # Calculate allowed change for Mobile Phase B
+    allowed_change_b = calculate_allowed_change(original_ratio_b, relative_change_a, absolute_change_limit_a)
 
-        # Save result for later display
-        allowed_changes[phase] = (original_ratio - allowed_change, original_ratio + allowed_change)
+    # Input for Mobile Phase C
+    st.sidebar.subheader(f"{mobile_phases[2]} - Original Ratio (%)")
+    original_ratio_c = 100 - original_ratio_a - original_ratio_b  # Ensure the sum is 100%
+
+    # Calculate allowed change for Mobile Phase C
+    allowed_change_c = calculate_allowed_change(original_ratio_c, relative_change_a, absolute_change_limit_a)
+
+    # Perform calculations
+    allowed_changes[mobile_phases[0]] = (original_ratio_a - calculate_allowed_change(original_ratio_a, relative_change_a, absolute_change_limit_a), original_ratio_a + calculate_allowed_change(original_ratio_a, relative_change_a, absolute_change_limit_a))
+    allowed_changes[mobile_phases[1]] = (original_ratio_b - allowed_change_b, original_ratio_b + allowed_change_b)
+    allowed_changes[mobile_phases[2]] = (original_ratio_c - allowed_change_c, original_ratio_c + allowed_change_c)
 
     # Display results
     st.subheader("Results")
