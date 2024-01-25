@@ -35,7 +35,9 @@ def main():
     st.subheader("Results")
 
     for phase, change in allowed_changes.items():
-        st.write(f"{phase} Allowed Change: {change:.2f}%")
+        lower_limit = 0
+        upper_limit = change
+        st.write(f"{phase} Allowed Change: From {lower_limit:.2f}% to {upper_limit:.2f}%")
 
 if __name__ == "__main__":
     main()
