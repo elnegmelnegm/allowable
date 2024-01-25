@@ -23,7 +23,6 @@ def main():
         st.sidebar.subheader(f"{phase} - Original Ratio (%)")
         original_ratio = st.sidebar.number_input(f"{phase} Original Ratio (%)", min_value=0.0, max_value=100.0, step=1.0, value=50.0)
 
-        # Set constants for Mobile Phase A
         if phase == 'Mobile Phase A':
             relative_change = MOBILE_PHASE_A_RELATIVE_LIMIT
             absolute_change_limit = MOBILE_PHASE_A_ABSOLUTE_LIMIT
