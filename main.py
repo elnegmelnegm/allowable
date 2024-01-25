@@ -16,15 +16,13 @@ def calculate_allowed_change(original_ratio, relative_change, absolute_change_li
 def main():
     st.title("Ratio of components in mobile phase")
 
-    #st.sidebar.header("Input Parameters")
-
     mobile_phases = ['Mobile Phase A', 'Mobile Phase B', 'Mobile Phase C']
 
     allowed_changes = {}
 
     for phase in mobile_phases:
-        st.sidebar.subheader(f"{phase} - Original Ratio (%)")
-        original_ratio = st.sidebar.number_input(f"{phase} Original Ratio (%)", min_value=0.0, max_value=100.0, step=1.0, value=50.0)
+        st.subheader(f"{phase} - Original Ratio (%)")
+        original_ratio = st.number_input(f"{phase} Original Ratio (%)", min_value=0.0, max_value=100.0, step=1.0, value=50.0)
 
         if phase == 'Mobile Phase A':
             relative_change = MOBILE_PHASE_A_RELATIVE_LIMIT
@@ -43,10 +41,11 @@ def main():
     # Display results
     st.subheader("Results")
 
-    for change_range in allowed_changes.items():
+    for phase, change_range in allowed_changes.items():
         original_ratio, lower_limit, upper_limit = change_range
-        #st.write(f"{phase} Original Ratio: {original_ratio:.2f}%")
+        st.write(f"{phase} Original Ratio: {original_ratio:.2f}%")
         st.write(f"{phase} Allowed Change: From {lower_limit:.2f}% to {upper_limit:.2f}%")
 
 if __name__ == "__main__":
     main()
+
