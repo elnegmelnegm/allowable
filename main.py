@@ -45,8 +45,8 @@ def main():
 
     for phase, change_range in allowed_changes.items():
         original_ratio, lower_limit, upper_limit = change_range
-        st.write(f"{phase} Original Ratio: {original_ratio:.2f}%")
-        st.write(f"{phase} Allowed Change: From {lower_limit:.2f}% to {upper_limit:.2f}%")
+        st.write(f"{phase} Original Ratio: {original_ratio:.1f}%")
+        st.write(f"{phase} Allowed Change: From {lower_limit:.1f}% to {upper_limit:.1f}%")
 
 if __name__ == "__main__":
     main()
